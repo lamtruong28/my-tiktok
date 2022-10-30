@@ -2,10 +2,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: var(--default-header-height);
 }
-.containter {
+.container {
     width: var(--default-width);
     display: flex;
+    padding: 0 var(--default-layout-horizontal-padding);
 }
 .content {
     flex: 1;

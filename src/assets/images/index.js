@@ -1,4 +1,7 @@
 import logo from '~/assets/images/logo.svg';
-export const images = {
+import noImage from '~/assets/images/no-image.png';
+const images = {
     logo,
+    noImage,
 };
+export default images;
