@@ -23,6 +23,7 @@ import Image from '~/components/Image';
 import { InboxIcon, MessageIcon } from '~/components/Icons';
 import Search from '../Search';
 import config from '~/config';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const cx = classNames.bind(styles);
 const MENU_ITEMS = [
@@ -60,7 +61,7 @@ function Header() {
     const [currentUser, setCurrentUser] = useState(true);
 
     // Handle logic
-    const handleMenuChange = (menuItem) => {
+    const handleMenuChange = (menuItem: any) => {
         switch (menuItem.type) {
             case 'language':
                 console.log(menuItem);
@@ -105,7 +106,7 @@ function Header() {
                         <>
                             <Tippy content="Upload video" delay={[0, 100]}>
                                 <button className={cx('action-btn')}>
-                                    <FontAwesomeIcon icon={faCloudUpload} />
+                                    <FontAwesomeIcon icon={faCloudUpload as IconProp} />
                                 </button>
                             </Tippy>
                             <Tippy content="Message" delay={[0, 100]}>
@@ -121,7 +122,7 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button outline secondary leftIcon={<FontAwesomeIcon icon={faAdd} />}>
+                            <Button outline secondary leftIcon={<FontAwesomeIcon icon={faAdd as IconProp} />}>
                                 Upload
                             </Button>
                             <Button primary>Log in</Button>
@@ -138,7 +139,7 @@ function Header() {
                             />
                         ) : (
                             <button className={cx('more-btn')}>
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                                <FontAwesomeIcon icon={faEllipsisVertical as IconProp} />
                             </button>
                         )}
                     </Menu>

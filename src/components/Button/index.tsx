@@ -1,9 +1,26 @@
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
+import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
 import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
+
+type ButtonPropsType = {
+    children: ReactNode;
+    to?: string;
+    href?: string;
+    primary?: boolean;
+    outline?: boolean;
+    rounded?: boolean;
+    small?: boolean;
+    large?: boolean;
+    secondary?: boolean;
+    disabled?: boolean;
+    className?: any;
+    leftIcon?: ReactNode;
+    rightIcon?: ReactNode;
+    onClick?: () => void;
+};
 
 function Button({
     children,
@@ -21,12 +38,12 @@ function Button({
     rightIcon,
     onClick,
     ...passProps
-}) {
-    let Comp = 'button';
+}: ButtonPropsType) {
+    let Comp: any = 'button';
     const props = {
         onClick,
         ...passProps,
-    };
+    } as any;
 
     if (to) {
         props.to = to;
@@ -61,23 +78,5 @@ function Button({
         </Comp>
     );
 }
-
-// check valid input data
-Button.propTypes = {
-    children: PropTypes.node.isRequired, //chấp nhận bất cứ kiểu gì có thể render được
-    to: PropTypes.string,
-    href: PropTypes.string,
-    primary: PropTypes.bool,
-    outline: PropTypes.bool,
-    rounded: PropTypes.bool,
-    small: PropTypes.bool,
-    large: PropTypes.bool,
-    secondary: PropTypes.bool,
-    disabled: PropTypes.bool,
-    className: PropTypes.string,
-    leftIcon: PropTypes.node,
-    rightIcon: PropTypes.node,
-    onClick: PropTypes.func,
-};
 
 export default Button;

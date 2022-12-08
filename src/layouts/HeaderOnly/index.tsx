@@ -1,7 +1,7 @@
+import { IChildren } from '~/interface';
 import Header from '../components/Header';
-import PropTypes from 'prop-types';
 
-function HeaderOnly({ children }) {
+function HeaderOnly({ children }: IChildren) {
     return (
         <div>
             <Header />
@@ -11,7 +11,4 @@ function HeaderOnly({ children }) {
         </div>
     );
 }
-HeaderOnly.propTypes = {
-    children: PropTypes.node.isRequired,
-};
 export default HeaderOnly;

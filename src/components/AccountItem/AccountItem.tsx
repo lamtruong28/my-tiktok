@@ -1,29 +1,30 @@
+import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { IUser } from '~/interface';
 import Image from '~/components/Image';
-import classNames from 'classnames/bind';
 import styles from './AccountItem.module.scss';
 
+type AccountItemProps = {
+    data: IUser;
+};
+
 const cx = classNames.bind(styles);
-function AccountItem({ data }) {
+function AccountItem({ data }: AccountItemProps) {
     return (
         <Link to={`/@${data.nickname}`} className={cx('wrapper')}>
             <Image className={cx('avatar')} src={data.avatar} alt={data.full_name} />
             <div className={cx('info')}>
                 <h4 className={cx('name')}>
                     <span>{data.full_name}</span>
-                    {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
+                    {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle as IconProp} />}
                 </h4>
                 <span className={cx('username')}>{data.nickname}</span>
             </div>
         </Link>
     );
 }
-
-AccountItem.propTypes = {
-    data: PropTypes.object.isRequired,
-};
 
 export default AccountItem;

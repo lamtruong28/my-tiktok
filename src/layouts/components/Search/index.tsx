@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import HeadlessTippy from '@tippyjs/react/headless';
@@ -7,6 +8,7 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import { SearchIcon } from '~/components/Icons';
 import { useDebounce } from '~/hooks';
+import { IUser } from '~/interface';
 import * as searchService from '~/services/searchService';
 
 import 'tippy.js/dist/tippy.css';
@@ -16,10 +18,10 @@ const cx = classNames.bind(styles);
 
 function Search() {
     const [searchValue, setSearchValue] = useState('');
-    const [searchResult, setSearchResult] = useState([]);
+    const [searchResult, setSearchResult] = useState<IUser[]>([]);
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
-    const inputRef = useRef();
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const debouncedValue = useDebounce(searchValue, 500);
 
@@ -37,7 +39,7 @@ function Search() {
         fetchApi();
     }, [debouncedValue]);
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchValue = e.target.value;
         // Check first character is not space
         if (!searchValue.startsWith(' ')) {
@@ -48,7 +50,7 @@ function Search() {
     const handleClear = () => {
         setSearchValue('');
         setSearchResult([]);
-        inputRef.current.focus();
+        inputRef.current?.focus();
     };
 
     const handleHideResult = () => {
@@ -59,7 +61,7 @@ function Search() {
         <div>
             <HeadlessTippy
                 render={(attrs) => (
-                    <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                    <div className={cx('search-result')} tabIndex={-1} {...attrs}>
                         <PopperWrapper>
                             <h4 className={cx('search-title')}>Accounts</h4>
                             {searchResult.map((result) => (
@@ -85,10 +87,10 @@ function Search() {
                     <div className={cx('icon')}>
                         {searchValue && !loading && (
                             <button className={cx('clear')} onClick={handleClear}>
-                                <FontAwesomeIcon icon={faCircleXmark} />
+                                <FontAwesomeIcon icon={faCircleXmark as IconProp} />
                             </button>
                         )}
-                        {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
+                        {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner as IconProp} />}
                     </div>
                     <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
                         <SearchIcon />
